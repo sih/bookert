@@ -1,0 +1,17 @@
+development:
+  host: localhost
+  database: bookert
+
+test:
+  host: localhost
+  database: bookert_test
+    
+production:
+  host: 172.0.0.1
+  database: bookert
+  use_activesupport_time_zone: true
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019
