@@ -30,6 +30,14 @@ describe BookingsController do
     it "routes to #destroy" do
       delete("/bookings/1").should route_to("bookings#destroy", :id => "1")
     end
+    
+    it "routes to #stream" do
+      get("stream/10").should route_to("bookings#stream", :items => "10")
+    end
+    
+    it "routes to #stream without items param" do
+      get("stream").should route_to("bookings#stream")
+    end    
 
   end
 end

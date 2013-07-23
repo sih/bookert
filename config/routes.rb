@@ -1,6 +1,8 @@
 Bookert::Application.routes.draw do
   resources :bookings
 
+  get 'stream(/:items)' => 'bookings#stream', :as => :bookings_stream
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

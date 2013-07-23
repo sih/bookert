@@ -1,4 +1,8 @@
 class BookingsController < ApplicationController
+  
+  # make doubles most likely
+  ROOM_TYPES = [Booking::DOUBLE,Booking::DOUBLE,Booking::SINGLE,Booking::DOUBLE,Booking::QUEEN,Booking::QUEEN,Booking::KING,Booking::EXECUTIVE,Booking::EXECUTIVE,Booking::SINGLE,Booking::SINGLE,Booking::DOUBLE,Booking::DOUBLE,Booking::JUNIOR]
+  
   # GET /bookings
   # GET /bookings.json
   def index
@@ -80,4 +84,39 @@ class BookingsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  #
+  # GET /stream/10000
+  #
+  def stream
+    
+    stream_count = (params[:items] || 1000).to_i 
+    
+    start = Time.now
+    added = 0
+    
+    stream_count.times do
+      b = Booking.new(
+        :booking_id => Fakey.string, 
+        :nights => Fakey.number(4), 
+        :rooms => Fakey.number(1)+1, 
+        :booking_date => Fakey.iso_date_short(50), 
+        :room_type => ROOM_TYPES[Fakey.number(ROOM_TYPES.length)],
+        :price => 100+Fakey.number(76))
+      
+      added += 1 if b.save
+      
+    end
+    
+    elapsed = (Time.now - start).to_i
+    
+    respond_to do |format|
+      format.html { redirect_to :bookings, notice: "#{added} bookings successfully created in #{elapsed}s." }
+      format.json { render json: "#{added} bookings successfully created in #{elapsed}s.", status: :created}
+    end    
+    
+  end
+
+
+
 end

@@ -13,6 +13,12 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 FakeWeb.allow_net_connect = false
 
 RSpec.configure do |config|
+  
+  config.color_enabled = true
+  config.tty = true
+  # config.formatter = :documentation
+  
+  
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

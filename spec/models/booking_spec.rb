@@ -25,12 +25,15 @@ describe Booking do
       @b.valid?.should be_false
     end    
     
-    it "should make sure room nights is a postive number"
+    it "should make sure room nights is a postive number" do
+      @b.nights = -1
+      @b.valid?.should be_false
+    end
 
-    
-  end
-  
-  describe "when updating an existing booking" do
+    it "should accept zero room nights" do
+      @b.nights = 0
+      @b.valid?.should be_true
+    end
     
   end
 
