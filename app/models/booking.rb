@@ -23,7 +23,14 @@ class Booking
   validates_format_of :booking_date, :with => /^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$/
   validates :nights, :numericality => { :greater_than_or_equal_to => 0 }
   
-  
+  #
+  # Return all bookings on this date
+  #
+  def self.on_date(book_date=nil)
+    results = []
+    results = Booking.where(booking_date: book_date) unless book_date.nil?
+    results 
+  end
   
 end
 

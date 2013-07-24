@@ -38,6 +38,10 @@ describe BookingsController do
     it "routes to #stream without items param" do
       get("stream").should route_to("bookings#stream")
     end    
+    
+    it "routes to #on_date" do
+      get("bookings/date/2013-07-24").should route_to("bookings#on_date", :booking_date => "2013-07-24")
+    end
 
   end
 end

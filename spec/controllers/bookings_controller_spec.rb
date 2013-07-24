@@ -160,5 +160,30 @@ describe BookingsController do
       response.should redirect_to(bookings_url)
     end
   end
+  
+  
+  describe "GET on_date" do
+    
+    before(:each) do
+      @booking = Booking.create! valid_attributes      
+    end
+    
+    describe "when there are bookings" do
+      it "assigns all bookings as @bookings" do
+        get :on_date, {:booking_date => '2013-07-22'}, valid_session
+        assigns(:bookings).should eq([@booking])
+      end      
+    end
+    
+    describe "when there are no bookings" do
+      it "assigns an empty array to @bookings" do
+        get :on_date, {:booking_date => '2013-07-24'}, valid_session
+        assigns(:bookings).should be_empty
+      end      
+    end
+
+  end
+  
+  
 
 end

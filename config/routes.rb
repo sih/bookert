@@ -2,6 +2,8 @@ Bookert::Application.routes.draw do
   resources :bookings
 
   get 'stream(/:items)' => 'bookings#stream', :as => :bookings_stream
+  
+  get 'bookings/date/:booking_date' => 'bookings#on_date', :as => :bookings_on_date
 
 
   # The priority is based upon order of creation:

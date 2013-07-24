@@ -87,6 +87,7 @@ class BookingsController < ApplicationController
 
   #
   # GET /stream/10000
+  # GET /stream/10000.json
   #
   def stream
     
@@ -117,6 +118,21 @@ class BookingsController < ApplicationController
     
   end
 
+
+  #
+  # GET /bookings/date/2013-07-24
+  # GET /bookings/date/2013-07-24.json
+  #
+  def on_date
+    @bookings = []
+    @bookings = Booking.on_date(params[:booking_date]) if params[:booking_date]
+    
+    respond_to do |format|
+      format.html {render "index"}
+      format.json {render json: @bookings}
+    end
+    
+  end
 
 
 end

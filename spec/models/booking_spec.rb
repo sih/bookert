@@ -37,4 +37,43 @@ describe Booking do
     
   end
 
+  describe "when querying by booking date" do
+    
+    before(:each) do
+      @b = Booking.new(:booking_id => "1243567", :booking_date => "2013-07-24", :nights => 2, :rooms => 2, :room_type => Booking::DOUBLE, :price => 104000)
+      @b.save.should be_true
+    end
+    
+    describe "when there are no bookings" do
+      
+      it "should return an empty array" do
+        Booking.on_date("2013-07-22").should be_empty
+      end
+      
+    end
+    
+    describe "when there is a booking" do
+      before(:each) do
+        @bookings = Booking.on_date("2013-07-24")
+      end
+      
+      it "should have a single booking in the array" do
+        @bookings.size.should == 1
+      end
+      
+      it "should match the booking created above" do
+        @bookings.first.should eq(@b)
+      end
+
+    end
+    
+    describe "when no params are passed" do
+      it "should return an empty array" do
+        Booking.on_date().should be_empty
+      end      
+    end
+    
+  end
+
+
 end
